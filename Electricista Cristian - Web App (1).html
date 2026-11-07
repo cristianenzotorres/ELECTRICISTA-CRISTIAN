@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electricista Cristian | Instalaciones & Seguridad Eléctrica - Bahía Blanca</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#fffbe6',
+                            100: '#fef3c7',
+                            500: '#f59e0b',
+                            600: '#d97706',
+                            700: '#b45309',
+                            900: '#78350f',
+                        },
+                        darkbg: '#0f172a',
+                        cardbg: '#1e293b'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 280px;
+            max-height: 320px;
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-100 font-sans antialiased min-h-screen flex flex-col justify-between">
+
+    <!-- Header Navigation -->
+    <header class="sticky top-0 z-50 bg-slate-900/90 backdrop-blur border-b border-slate-800">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex flex-wrap justify-between items-center gap-4">
+            <div class="flex items-center gap-3">
+                <span class="text-3xl">⚡</span>
+                <div>
+                    <h1 class="text-xl font-bold text-amber-400 tracking-wide">Electricista Cristian</h1>
+                    <p class="text-xs text-slate-400">Servicios Eléctricos Profesionales • Bahía Blanca</p>
+                </div>
+            </div>
+            <nav class="flex items-center gap-4 text-sm font-medium">
+                <a href="#servicios" class="hover:text-amber-400 transition">Servicios</a>
+                <a href="#calculador" class="hover:text-amber-400 transition">Simulador de Casa</a>
+                <a href="#normativa" class="hover:text-amber-400 transition">Seguridad</a>
+                <a href="#contacto" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-4 py-2 rounded-lg transition">Solicitar Turno</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="max-w-6xl mx-auto px-4 py-8 space-y-12 flex-grow">
+
+        <!-- Hero Notice Banner -->
+        <section class="bg-gradient-to-r from-slate-800 to-slate-800/80 border border-amber-500/30 rounded-2xl p-6 sm:p-8 shadow-xl">
+            <div class="max-w-3xl space-y-4">
+                <span class="inline-block bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-semibold px-3 py-1 rounded-full">
+                    📋 Atención Programada
+                </span>
+                <h2 class="text-2xl sm:text-3xl font-bold text-white">Instalaciones Seguras y Protección para tu Hogar o Negocio</h2>
+                <p class="text-slate-300 text-sm sm:text-base">
+                    Trabajos ejecutados bajo estrictas normas oficiales de seguridad eléctrica (**Normas AEA 90364**, la guía obligatoria para instalaciones que no ponen en riesgo tu vida ni tus bienes). Garantizamos protección contra descargas, distribución equilibrada de la luz y materiales certificados (**IRAM**).
+                </p>
+                <div class="flex flex-wrap gap-4 pt-2">
+                    <button onclick="scrollToCalc()" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-5 py-2.5 rounded-lg text-sm transition">
+                        📊 Calcular Necesidades de mi Casa
+                    </button>
+                    <button onclick="sendWhatsAppDirect()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-5 py-2.5 rounded-lg text-sm flex items-center gap-2 transition">
+                        💬 WhatsApp Directo (291 506 8950)
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 1: Services Selector -->
+        <section id="servicios" class="space-y-6">
+            <div>
+                <h2 class="text-xl font-bold text-amber-400 flex items-center gap-2">
+                    <span>🛠️</span> 1. ¿Qué servicio necesitás en tu propiedad?
+                </h2>
+                <p class="text-slate-400 text-sm">Hacé clic en las opciones para armar el detalle de lo que querés consultar con Cristian.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="servicesGrid">
+                <!-- Card 1 -->
+                <div onclick="toggleServiceCard(this, 'Tableros Eléctricos y Protecciones')" class="service-card cursor-pointer bg-slate-800 border border-slate-700 hover:border-amber-500/60 p-5 rounded-xl transition duration-200">
+                    <div class="flex justify-between items-start mb-2">
+                        <span class="text-2xl">🎛️</span>
+                        <span class="badge-status text-xs bg-slate-700 text-slate-300 px-2 py-0.5 rounded">Seleccionar</span>
+                    </div>
+                    <h3 class="font-semibold text-white">Tableros, Térmicas y Disyuntores</h3>
+                    <p class="text-xs text-slate-400 mt-1">Armado o cambio de la caja principal de luz. Incluye **llaves térmicas** (que cortan automáticamente si hay un cortocircuito) y **disyuntores** (el salvavidas que corta la luz al instante si alguien toca un cable pelado o sufre una descarga).</p>
+                </div>
+
+                <!-- Card 2 -->
+                <div onclick="toggleServiceCard(this, 'Instalación Obra Nueva / Refacción')" class="service-card cursor-pointer bg-slate-800 border border-slate-700 hover:border-amber-500/60 p-5 rounded-xl transition duration-200">
+                    <div class="flex justify-between items-start mb-2">
+                        <span class="text-2xl">🏗️</span>
+                        <span class="badge-status text-xs bg-slate-700 text-slate-300 px-2 py-0.5 rounded">Seleccionar</span>
+                    </div>
+                    <h3 class="font-semibold text-white">Cableado Completo o Reformas</h3>
+                    <p class="text-xs text-slate-400 mt-1">Instalación integral de caños, cajas y cables nuevos desde cero o renovación total en paredes y techos, utilizando conductores seguros que no propagan llama en caso de chispa.</p>
+                </div>
+
+                <!-- Card 3 -->
+                <div onclick="toggleServiceCard(this, 'Puesta a Tierra (PAT) e Inspección')" class="service-card cursor-pointer bg-slate-800 border border-slate-700 hover:border-amber-500/60 p-5 rounded-xl transition duration-200">
+                    <div class="flex justify-between items-start mb-2">
+                        <span class="text-2xl">🔌</span>
+                        <span class="badge-status text-xs bg-slate-700 text-slate-300 px-2 py-0.5 rounded">Seleccionar</span>
+                    </div>
+                    <h3 class="font-semibold text-white">Puesta a Tierra (Jabalina de Seguridad)</h3>
+                    <p class="text-xs text-slate-400 mt-1">Clavado de la **jabalina** en la tierra y conexión a los tercer pines de los enchufes para derivar corrientes perdidas y evitar patadas al tocar electrodomésticos como lavarropas o heladeras.</p>
+                </div>
+
+                <!-- Card 4 -->
+                <div onclick="toggleServiceCard(this, 'Líneas Dedicadas Aire Acondicionado')" class="service-card cursor-pointer bg-slate-800 border border-slate-700 hover:border-amber-500/60 p-5 rounded-xl transition duration-200">
+                    <div class="flex justify-between items-start mb-2">
+                        <span class="text-2xl">❄️</span>
+                        <span class="badge-status text-xs bg-slate-700 text-slate-300 px-2 py-0.5 rounded">Seleccionar</span>
+                    </div>
+                    <h3 class="font-semibold text-white">Línea Exclusiva para Aires Acondicionados</h3>
+                    <p class="text-xs text-slate-400 mt-1">Colocación de un cableado reforzado y exclusivo desde el tablero principal para que tu aire acondicionado o sistema inverter funcione a pleno rendimiento sin sobrecalentar los cables comunes.</p>
+                </div>
+
+                <!-- Card 5 -->
+                <div onclick="toggleServiceCard(this, 'Cargador Vehículo Eléctrico AEA 722')" class="service-card cursor-pointer bg-slate-800 border border-slate-700 hover:border-amber-500/60 p-5 rounded-xl transition duration-200">
+                    <div class="flex justify-between items-start mb-2">
+                        <span class="text-2xl">🚗</span>
+                        <span class="badge-status text-xs bg-slate-700 text-slate-300 px-2 py-0.5 rounded">Seleccionar</span>
+                    </div>
+                    <h3 class="font-semibold text-white">Cargador para Auto Eléctrico (Wallbox)</h3>
+                    <p class="text-xs text-slate-400 mt-1">Instalación de potencia y protecciones especiales adaptadas a la norma **AEA 722** para cargar vehículos híbridos y 100% eléctricos de forma segura en tu garaje.</p>
+                </div>
+
+                <!-- Card 6 -->
+                <div onclick="toggleServiceCard(this, 'Iluminación LED y Diagnóstico')" class="service-card cursor-pointer bg-slate-800 border border-slate-700 hover:border-amber-500/60 p-5 rounded-xl transition duration-200">
+                    <div class="flex justify-between items-start mb-2">
+                        <span class="text-2xl">💡</span>
+                        <span class="badge-status text-xs bg-slate-700 text-slate-300 px-2 py-0.5 rounded">Seleccionar</span>
+                    </div>
+                    <h3 class="font-semibold text-white">Luces LED y Búsqueda de Falla</h3>
+                    <p class="text-xs text-slate-400 mt-1">Colocación prolija con nivel láser de artefactos, tiras de LED, sensores y detección rápida de por qué saltan las térmicas o fallan los enchufes.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Interactive AEA Calculator -->
+        <section id="calculador" class="bg-slate-800/80 border border-slate-700 rounded-2xl p-6 sm:p-8 space-y-6">
+            <div>
+                <h2 class="text-xl font-bold text-amber-400 flex items-center gap-2">
+                    <span>📐</span> 2. Simulador del Nivel de Energía de tu Casa
+                </h2>
+                <p class="text-slate-400 text-sm">
+                    Mové la barra según los metros cuadrados de tu propiedad para calcular el grado de electrificación y cuántas divisiones de seguridad (circuitos) necesitás por reglamento.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <!-- Controls Column -->
+                <div class="lg:col-span-6 space-y-5">
+                    <div>
+                        <div class="flex justify-between text-sm mb-2">
+                            <label for="sqmInput" class="text-slate-300">Tamaño de la propiedad (Metros cubiertos):</label>
+                            <span id="sqmDisplay" class="font-bold text-amber-400">75 m²</span>
+                        </div>
+                        <input type="range" id="sqmInput" min="30" max="250" value="75" step="5" class="w-full accent-amber-500 cursor-pointer" oninput="recalculateAEA()">
+                    </div>
+
+                    <div class="space-y-3 pt-2">
+                        <span class="text-xs font-semibold text-slate-400 tracking-wider uppercase block">Equipamiento o extras en tu hogar:</span>
+                        <label class="flex items-center gap-3 text-sm text-slate-300 cursor-pointer bg-slate-900/60 p-3 rounded-lg border border-slate-700 hover:border-slate-600">
+                            <input type="checkbox" id="chkAirCon" class="accent-amber-500 w-4 h-4" onchange="recalculateAEA()">
+                            <span>Tengo Aires Acondicionados / Inverter</span>
+                        </label>
+                        <label class="flex items-center gap-3 text-sm text-slate-300 cursor-pointer bg-slate-900/60 p-3 rounded-lg border border-slate-700 hover:border-slate-600">
+                            <input type="checkbox" id="chkGround" class="accent-amber-500 w-4 h-4" onchange="recalculateAEA()">
+                            <span>Necesito instalar o revisar la Jabalina de Tierra (PAT)</span>
+                        </label>
+                        <label class="flex items-center gap-3 text-sm text-slate-300 cursor-pointer bg-slate-900/60 p-3 rounded-lg border border-slate-700 hover:border-slate-600">
+                            <input type="checkbox" id="chkEV" class="accent-amber-500 w-4 h-4" onchange="recalculateAEA()">
+                            <span>Quiero cargar un Auto Eléctrico (Wallbox - AEA 722)</span>
+                        </label>
+                    </div>
+
+                    <!-- Summary Cards -->
+                    <div class="grid grid-cols-2 gap-3 pt-2">
+                        <div class="bg-slate-900 p-3.5 rounded-lg border border-slate-700 text-center">
+                            <span class="text-xs text-slate-400 block">Nivel de Potencia (Electrificación)</span>
+                            <span id="resElectrification" class="text-sm font-bold text-amber-400">Medio (G2)</span>
+                        </div>
+                        <div class="bg-slate-900 p-3.5 rounded-lg border border-slate-700 text-center">
+                            <span class="text-xs text-slate-400 block">Circuitos Mínimos Recomendados</span>
+                            <span id="resCircuits" class="text-sm font-bold text-white">4 Circuitos</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chart Column -->
+                <div class="lg:col-span-6 bg-slate-900 p-4 rounded-xl border border-slate-700 flex flex-col items-center">
+                    <h3 class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Cómo se reparte la energía en tu hogar</h3>
+                    <div class="chart-container">
+                        <canvas id="aeaChart"></canvas>
+                    </div>
+                    <p class="text-[11px] text-slate-500 text-center mt-3">
+                        *Los **circuitos independientes** (separar luces de enchufes y electrodomésticos) sirven para que, si salta una térmica en una zona, no te quedes a oscuras en toda la casa.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Normative & Technical Standards -->
+        <section id="normativa" class="space-y-6">
+            <div>
+                <h2 class="text-xl font-bold text-amber-400 flex items-center gap-2">
+                    <span>🛡️</span> 3. ¿Por qué es clave trabajar bajo normas oficiales?
+                </h2>
+                <p class="text-slate-400 text-sm">Tranquilidad y seguridad real para proteger a tu familia y tus aparatos en Bahía Blanca.</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
+                <div class="bg-slate-800 p-5 rounded-xl border border-slate-700 space-y-2">
+                    <span class="text-amber-400 font-bold text-lg">01. Normas AEA 90364</span>
+                    <h3 class="font-semibold text-white">Cálculos de Seguridad</h3>
+                    <p class="text-slate-400 text-xs">Cálculo exacto del grosor de los cables y tamaño de las llaves para evitar recalentamientos o principios de incendio por sobrecarga en las paredes.</p>
+                </div>
+                <div class="bg-slate-800 p-5 rounded-xl border border-slate-700 space-y-2">
+                    <span class="text-amber-400 font-bold text-lg">02. Materiales IRAM</span>
+                    <h3 class="font-semibold text-white">Cables Homologados</h3>
+                    <p class="text-slate-400 text-xs">Uso exclusivo de cables certificados y ignífugos (que no propagan fuego en caso de desperfecto eléctrico).</p>
+                </div>
+                <div class="bg-slate-800 p-5 rounded-xl border border-slate-700 space-y-2">
+                    <span class="text-amber-400 font-bold text-lg">03. Protección Anti-Patadas</span>
+                    <h3 class="font-semibold text-white">Disyuntor y Jabalina</h3>
+                    <p class="text-slate-400 text-xs">Instalación obligatoria del disyuntor salvavidas y jabalina conectada a tierra para derivar cualquier fuga peligrosa de electricidad.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: WhatsApp Quote Generator -->
+        <section id="contacto" class="bg-gradient-to-b from-slate-800 to-slate-900 border border-amber-500/40 rounded-2xl p-6 sm:p-8 space-y-6">
+            <div class="text-center max-w-2xl mx-auto space-y-2">
+                <h2 class="text-2xl font-bold text-white">Enviar Solicitud Directa a WhatsApp</h2>
+                <p class="text-slate-300 text-sm">
+                    Revisá la información recopilada e inicialá la conversación directamente con Cristian para coordinar una visita técnica.
+                </p>
+            </div>
+
+            <div class="max-w-xl mx-auto bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-4">
+                <h3 class="text-xs font-semibold uppercase tracking-wider text-amber-400">Resumen del Mensaje a Enviar:</h3>
+                <div id="summaryBox" class="text-xs sm:text-sm font-mono bg-slate-900 p-4 rounded border border-slate-800 text-slate-300 whitespace-pre-wrap leading-relaxed">
+                    Cargando resumen...
+                </div>
+
+                <div class="flex flex-col sm:flex-row gap-3 pt-2">
+                    <button onclick="sendWhatsAppDirect()" class="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 px-4 rounded-lg text-center flex justify-center items-center gap-2 transition">
+                        <span>💬</span> Enviar por WhatsApp (291 506 8950)
+                    </button>
+                    <button onclick="copyToClipboard()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold py-3 px-4 rounded-lg border border-slate-700 transition text-sm">
+                        📋 Copiar Texto
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-800 bg-slate-950 py-6 text-center text-xs text-slate-500">
+        <p>Electricista Cristian • Bahía Blanca, Buenos Aires. Trabajos profesionales bajo norma AEA.</p>
+        <p class="mt-1">Contacto Directo: +54 9 291 506-8950</p>
+    </footer>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        let selectedServices = [];
+        let chartInstance = null;
+
+        // Initialize Application
+        document.addEventListener('DOMContentLoaded', () => {
+            initChart();
+            recalculateAEA();
+        });
+
+        function scrollToCalc() {
+            document.getElementById('calculador').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function toggleServiceCard(card, serviceName) {
+            const badge = card.querySelector('.badge-status');
+            if (selectedServices.includes(serviceName)) {
+                selectedServices = selectedServices.filter(s => s !== serviceName);
+                card.classList.remove('border-amber-500', 'bg-slate-800/90');
+                card.classList.add('border-slate-700');
+                if (badge) {
+                    badge.textContent = 'Seleccionar';
+                    badge.className = 'badge-status text-xs bg-slate-700 text-slate-300 px-2 py-0.5 rounded';
+                }
+            } else {
+                selectedServices.push(serviceName);
+                card.classList.add('border-amber-500', 'bg-slate-800/90');
+                card.classList.remove('border-slate-700');
+                if (badge) {
+                    badge.textContent = '✓ Seleccionado';
+                    badge.className = 'badge-status text-xs bg-amber-500 text-slate-950 font-bold px-2 py-0.5 rounded';
+                }
+            }
+            updateSummaryText();
+        }
+
+        function recalculateAEA() {
+            const sqm = parseInt(document.getElementById('sqmInput').value);
+            document.getElementById('sqmDisplay').textContent = sqm + ' m²';
+
+            const hasAirCon = document.getElementById('chkAirCon').checked;
+            const hasGround = document.getElementById('chkGround').checked;
+            const hasEV = document.getElementById('chkEV').checked;
+
+            let electrification = "Mínimo (G1)";
+            let circuits = "2 a 3 Circuitos";
+            let valIug = 30; // Iluminación
+            let valTug = 45; // Tomas Generales
+            let valCue = 15; // Cargas Especiales / Aire
+            let valEv = 10;  // EV
+
+            if (sqm > 60 && sqm <= 130) {
+                electrification = "Medio (G2)";
+                circuits = "4 a 5 Circuitos";
+                valIug = 25; valTug = 45; valCue = 30;
+            } else if (sqm > 130 && sqm <= 200) {
+                electrification = "Elevado (G3)";
+                circuits = "6 a 7 Circuitos";
+                valIug = 20; valTug = 40; valCue = 40;
+            } else if (sqm > 200) {
+                electrification = "Superior (G4)";
+                circuits = "8+ Circuitos";
+                valIug = 20; valTug = 35; valCue = 45;
+            }
+
+            if (hasAirCon) valCue += 15;
+            if (hasEV) valEv += 25;
+
+            document.getElementById('resElectrification').textContent = electrification;
+            document.getElementById('resCircuits').textContent = circuits;
+
+            updateChartData([valIug, valTug, valCue, valEv]);
+            updateSummaryText();
+        }
+
+        function initChart() {
+            const ctx = document.getElementById('aeaChart').getContext('2d');
+            chartInstance = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Luces (Iluminación)', 'Enchufes Generales', 'Aires / Artefactos Grandes', 'Carga de Auto (EV)'],
+                    datasets: [{
+                        data: [30, 45, 15, 10],
+                        backgroundColor: ['#f59e0b', '#3b82f6', '#10b981', '#8b5cf6'],
+                        borderWidth: 2,
+                        borderColor: '#0f172a'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: '#94a3b8',
+                                font: { size: 11 }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function updateChartData(newData) {
+            if (chartInstance) {
+                chartInstance.data.datasets[0].data = newData;
+                chartInstance.update();
+            }
+        }
+
+        function buildSummaryMessage() {
+            const sqm = document.getElementById('sqmInput').value;
+            const electrification = document.getElementById('resElectrification').textContent;
+            const circuits = document.getElementById('resCircuits').textContent;
+            const hasAirCon = document.getElementById('chkAirCon').checked ? 'Sí' : 'No';
+            const hasGround = document.getElementById('chkGround').checked ? 'Sí' : 'No';
+            const hasEV = document.getElementById('chkEV').checked ? 'Sí' : 'No';
+
+            let msg = `Hola Cristian, quisiera consultar por un presupuesto técnico en Bahía Blanca:\n\n`;
+            msg += `📐 Superficie de la casa: ${sqm} m²\n`;
+            msg += `⚡ Nivel de potencia estimado: ${electrification}\n`;
+            msg += `🔌 Circuitos recomendados: ${circuits}\n`;
+            msg += `❄️ Incluye Aires Acondicionados: ${hasAirCon}\n`;
+            msg += `🔰 Requiere Jabalina / Puesta a Tierra: ${hasGround}\n`;
+            msg += `🚗 Requiere Cargador de Auto: ${hasEV}\n\n`;
+
+            if (selectedServices.length > 0) {
+                msg += `📋 Servicios requeridos:\n`;
+                selectedServices.forEach(s => msg += `• ${s}\n`);
+            } else {
+                msg += `📋 Servicios requeridos: Consulta general / Asesoramiento\n`;
+            }
+
+            msg += `\nQuedo a la espera de tu respuesta para coordinar. ¡Gracias!`;
+            return msg;
+        }
+
+        function updateSummaryText() {
+            const summaryBox = document.getElementById('summaryBox');
+            if (summaryBox) {
+                summaryBox.textContent = buildSummaryMessage();
+            }
+        }
+
+        function sendWhatsAppDirect() {
+            const message = buildSummaryMessage();
+            const encodedText = encodeURIComponent(message);
+            const phoneNumber = "5492915068950";
+            window.open(`https://wa.me/${phoneNumber}?text=${encodedText}`, '_blank');
+        }
+
+        function copyToClipboard() {
+            const message = buildSummaryMessage();
+            navigator.clipboard.writeText(message).then(() => {
+                alert('¡Texto copiado al portapapeles!');
+            }).catch(() => {
+                alert('No se pudo copiar automáticamente. Puedes seleccionar el texto manualmente.');
+            });
+        }
+    </script>
+</body>
+</html>
